@@ -11,8 +11,7 @@ yarn install
 
 ### Find Vowel's auth cookie value
 Vowel's auth cookie value is found by looking for the cookies when accessing Vowel in your browser. The example below is using a chrome extension for managing cookies, but you can also find it by looking into vowel requests in your chrome devtools' Network tab.
-
-<img width="561" alt="Screenshot 2023-07-05 at 18 35 36" src="https://github.com/agencyenterprise/vowel-download/assets/5142389/a380336e-a6f9-4120-854d-e56eff1612b0">
+<img width="561" alt="vowel_auth_cookie" src="https://github.com/agencyenterprise/vowel-download/assets/5142389/9bfe8f5f-a1b8-47b7-a716-b6310f776452">
 
 ### Setting up your .env
 1. Copy the .env-example file, changing its name to .env
