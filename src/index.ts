@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import path from 'path';
 
+import data, { saveData } from './data';
 import config from './config';
 import { convertDateToPST } from './helpers/convertDateToPST';
 import { createFolderIfDoesNotExist } from './helpers/createFolderIfDoesNotExist';
@@ -26,6 +27,11 @@ async function run() {
     console.group(`Init batch ${page + 1} of ${total}`);
 
     const promises = meetings.map(async (meeting) => {
+      if (data.downloadedMeetings[meeting.id]) {
+        console.log(`Skipping meeting ${meeting.id} because it was already downloaded`);
+        return;
+      }
+
       const basePath = path.resolve('out', 'meetings', sanitizeFolderName(meeting.name));
       createFolderIfDoesNotExist(basePath);
 
@@ -33,6 +39,10 @@ async function run() {
       createFolderIfDoesNotExist(meetingFolderPath);
 
       await downloadMeeting(meeting.id, meetingFolderPath);
+
+      data.downloadedMeetings[meeting.id] = true;
+      saveData();
+
       console.log(`Downloaded meeting: ${meetingFolderPath}`);
     });
 
